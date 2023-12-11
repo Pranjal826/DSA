@@ -1,28 +1,24 @@
 #include<iostream>
 using namespace std;
-// class info{
-// private:
-// int weight;
-// public:
-// int age;
-// void getweight(){
-//     cout<<weight;
-// }
+class Student{
+    int id;
+    string name;
+    int age;
+    int nos;
+    void study(){
+        cout<<"Studying";
+    }
+    void sleep(){
+        cout<<"Sleeping";
+    }
+    void bunk(){
+        cout<<"Bunking";
+    }
 
-// int setweight(int w){
-//     weight=w;
-//     return w;
-// }
-// };
-// int main(){
-//     info obj;
-//     obj.age=20;
-//     int weight;
-//     cin>>weight;
-//     obj.setweight(weight);
-//     cout<<obj.age<<endl;
-//     obj.getweight();
-//     return 0;
-// }
+};
+int main(){
+    Student s1;
+    Student s2;
+    return 0;
 
- 
+}
