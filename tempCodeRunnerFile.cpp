@@ -1,80 +1,87 @@
-//Merge two sorted list
-//Given a sorted linked list A and B, merge the two lists into one sorted linked list
-//and return it.
+// Intersection of two linked list
 #include<iostream>
 using namespace std;
 class Node{
     public:
     int data;
-    Node* next;
-    Node(int data){
-        this->data=data;
+    Node*next;
+    Node(int d){
+        data=d;
         next=NULL;
     }
 };
-Node* takeinput(){
-    int data;
-    cin>>data;
-    Node* head=NULL;
-    Node* tail=NULL;
-    while(data!=-1){
-        Node* newnode=new Node(data);
-        if(head==NULL){
-            head=newnode;
-            tail=newnode;
+
+Node*getIntersection(Node*head1,Node*head2){
+    Node*a=head1;
+    Node*b=head2;
+    while(a->next&&b->next){
+        if(a==b){
+            return a;
         }
-        else{
-            tail->next=newnode;
-            tail=newnode;
+        a=a->next;
+        b=b->next;
+    }
+    if(a->next==0){
+        int blen=0;
+        while(b->next){
+            blen++;
+            b=b->next;
         }
-        cin>>data;
-    }
-    return head;
-}
-void print(Node* head){
-    Node* temp=head;
-    while(temp!=NULL){
-        cout<<temp->data<<" ";
-        temp=temp->next;
-    }
-}
-Node* merge(Node* head1,Node* head2){
-if(head1==NULL)
-return head2;
-if(head2==NULL)
-return head1;
-Node*ans=new Node(-1);
-Node*ptr=ans;
-while(head1&&head2){
-    if(head1->data<=head2->data){
-        ptr->next=head1;
-        ptr=head1;
-        head1=head1->next;
+        while(blen--){
+            head2=head2->next;
+        }
     }
     else{
-        ptr->next=head2;
-        ptr=head2;
-        head2=head2->next;
-
+        int alen=0;
+        while(a->next){
+            alen++;
+            a=a->next;
+        }
+        while(alen--){
+            head1=head1->next;
+        }
     }
-
+    while(head1!=head2){
+        head1=head1->next;
+        head2=head2->next;
+    }
+    return head1;
+    
 }
-while(head1){
-    ptr->next=head1;
-    ptr=head1;
-    head1=head1->next;
-}
-while(head2){
-    ptr->next=head2;
-    ptr=head2;
-    head2=head2->next;
-}
-return ans->next;
-}
-int main(){
-    Node* head1=takeinput();
-    Node* head2=takeinput();
-    Node* head=merge(head1,head2);
-    print(head);
+int main() {
+    int n,m;
+    cin>>n>>m;
+    Node*head1=NULL;
+    Node*head2=NULL;
+    Node*tail1=NULL;
+    Node*tail2=NULL;
+    for(int i=0;i<n;i++){
+        int x;
+        cin>>x;
+        Node*temp=new Node(x);
+        if(head1==NULL){
+            head1=temp;
+            tail1=temp;
+        }
+        else{
+            tail1->next=temp;
+            tail1=temp;
+        }
+    }
+    for(int i=0;i<m;i++){
+        int x;
+        cin>>x;
+        Node*temp=new Node(x);
+        if(head2==NULL){
+            head2=temp;
+            tail2=temp;
+        }
+        else{
+            tail2->next=temp;
+            tail2=temp;
+        }
+    }
+    Node*ans=getIntersection(head1,head2);
+    cout<<ans->data;
     return 0;
 }
